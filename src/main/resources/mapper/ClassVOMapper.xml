@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markerhub.mapper.ClassVOMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.markerhub.entity.vo.ClassVO" id="sysClassMap">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="statu" column="statu"/>
+        <result property="nums" column="nums"/>
+    </resultMap>
+    <select id="pageAllClass" resultType="com.markerhub.entity.vo.ClassVO">
+         select id,code ,name ,statu  from sys_class
+         <where>
+                name like concat('%',#{name},'%')
+         </where>
+    </select>
+
+
+</mapper>

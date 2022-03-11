@@ -9,12 +9,21 @@ spring:
     password: root
   redis:
     host: 192.168.27.37
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
 #  security:
 #    user:
 #      name: user
 #      password: 111111
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 markerhub:
   jwt:
     header: Authorization
@@ -26,8 +35,6 @@ qiniu:
   access-key: gP4XWxPuAMZMeVFeU83IW1mxv_FbFBLRDw94GGIZ
   secret-key: efCnmzcr4KfUji08zVfz2L4-PD4F8Ei0nfBuA2Ut
   bucket: yuque-hexo
-
-
 
 
 
