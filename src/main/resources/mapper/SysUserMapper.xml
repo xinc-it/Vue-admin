@@ -24,4 +24,11 @@
         WHERE
             rm.menu_id = #{menuId}
     </select>
+    <select id="getNotBindUserList" resultType="com.markerhub.entity.SysUser">
+        select id,username from sys_user user
+        where id  not in (
+        select user_id from sys_stu stu
+        where stu.statu=1
+        )
+    </select>
 </mapper>

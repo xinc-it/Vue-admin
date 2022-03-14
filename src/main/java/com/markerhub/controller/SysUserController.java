@@ -10,6 +10,7 @@ import com.markerhub.common.lang.Result;
 import com.markerhub.entity.SysRole;
 import com.markerhub.entity.SysUser;
 import com.markerhub.entity.SysUserRole;
+import com.markerhub.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,6 +67,14 @@ public class SysUserController extends BaseController {
         });
 
         return Result.succ(pageData);
+    }
+
+
+    @GetMapping("/all")
+    public R getAllUsers() {
+        List<SysUser> userList = sysUserService.findAllUsers();
+        //return Result.succ(pageData);
+        return  R.ok().put("data", userList);
     }
 
     @PostMapping("/save")
