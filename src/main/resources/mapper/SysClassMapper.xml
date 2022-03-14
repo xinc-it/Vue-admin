@@ -3,13 +3,21 @@
 
 <mapper namespace="com.markerhub.mapper.SysClassMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.markerhub.entity.SysClassEntity" id="sysClassMap">
         <result property="id" column="id"/>
         <result property="code" column="code"/>
         <result property="name" column="name"/>
         <result property="statu" column="statu"/>
     </resultMap>
+    <select id="pageAllClass" resultType="com.markerhub.entity.vo.ClassVO">
+        select class.id,class.code ,class.name ,class.statu , COUNT(stu.name) nums
+        FROM sys_class class
+        LEFT JOIN sys_stu stu
+        ON stu.class_id=class.id and stu.statu=1
+        WHERE class.name like concat('%','','%')
+        group by class.id
+    </select>
 
 
 </mapper>
