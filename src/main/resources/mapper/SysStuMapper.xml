@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markerhub.mapper.SysStuMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.markerhub.entity.SysStuEntity" id="sysStuMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="userId" column="user_id"/>
+        <result property="classId" column="class_id"/>
+        <result property="statu" column="statu"/>
+    </resultMap>
+    <resultMap type="com.markerhub.entity.vo.StudentVO" id="studentVO">
+        <result property="id" column="stuId"/>
+        <result property="name" column="stuName"/>
+        <result property="code" column="stuCode"/>
+        <result property="statu" column="statu"/>
+        <association property="user" javaType="com.markerhub.entity.SysUser">
+            <result property="id" column="userId"/>
+            <result property="username" column="username"/>
+        </association>
+        <association property="classInfo" javaType="com.markerhub.entity.SysClassEntity">
+            <result property="id" column="classId"/>
+            <result property="name" column="className"/>
+        </association>
+
+    </resultMap>
+
+
+    <select id="pageAllStudentVO" resultMap="studentVO">
+        select stu.id stuId,stu.name stuName ,stu.code stuCode ,user.id  userId,user.username username, class.id classId, class.name className ,stu.statu statu
+        from sys_stu stu,sys_user user,sys_class class
+        where stu.user_id=user.id and stu.class_id=class.id
+        and stu.name  like concat('%',#{name},'%')
+    </select>
+
+
+</mapper>
