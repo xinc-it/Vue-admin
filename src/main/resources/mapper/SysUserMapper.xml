@@ -31,4 +31,10 @@
         where stu.statu=1
         )
     </select>
+    <select id="getAllManagers" resultType="com.markerhub.entity.SysUser">
+        select user.id,user.username from sys_user user
+        inner join sys_user_role ur on ur.user_id = user.id
+        inner join sys_role role on role.id=ur.role_id
+        where role.code='admin' and user.statu=1 and role.statu=1
+    </select>
 </mapper>

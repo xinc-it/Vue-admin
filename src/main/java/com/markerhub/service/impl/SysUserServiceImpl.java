@@ -123,4 +123,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         List<SysUser> userList = sysUserMapper.getNotBindUserList();
         return userList;
     }
+
+    @Override
+    public List<SysUser> getAllManagers() {
+        List<SysUser> managers = sysUserMapper.getAllManagers();
+        return managers;
+    }
 }

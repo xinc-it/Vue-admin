@@ -23,4 +23,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 	List<SysUser> listByMenuId(Long menuId);
 
 	List<SysUser> getNotBindUserList();
+
+    List<SysUser> getAllManagers();
 }

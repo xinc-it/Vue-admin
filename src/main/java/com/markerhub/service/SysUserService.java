@@ -29,4 +29,6 @@ public interface SysUserService extends IService<SysUser> {
 	boolean existsEmail(String  emailAddress) throws Exception;
 
 	List<SysUser> findAllUsers();
+
+	List<SysUser> getAllManagers();
 }
