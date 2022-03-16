@@ -129,4 +129,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         List<SysUser> managers = sysUserMapper.getAllManagers();
         return managers;
     }
+
+    @Override
+    public SysUser getUserRoleByName(String name) {
+        return sysUserMapper.getUserRoleByName(name);
+    }
+
+
+
 }

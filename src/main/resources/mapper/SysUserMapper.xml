@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.markerhub.mapper.SysUserMapper">
 
+
+    <resultMap id="userRole" type="com.markerhub.entity.SysUser">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="avatar" column="avatar"/>
+        <result property="city" column="city"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+        <result property="statu" column="statu"/>
+        <collection property="sysRoles" ofType="com.markerhub.entity.SysRole">
+            <result column="role_id" property="id"/>
+            <result column="role_code" property="code"/>
+            <result column="role_name" property="name"/>
+            <result column="role_statu" property="statu"/>
+        </collection>
+    </resultMap>
     <select id="getNavMenuIds" resultType="java.lang.Long">
         SELECT
             DISTINCT sm.id
@@ -36,5 +55,12 @@
         inner join sys_user_role ur on ur.user_id = user.id
         inner join sys_role role on role.id=ur.role_id
         where role.code='admin' and user.statu=1 and role.statu=1
+    </select>
+    <select id="getUserRoleByName" resultMap="userRole">
+        select user.* ,role.id role_id ,role.code role_code ,role.name role_name
+        from sys_user user
+        inner join sys_user_role ur on ur.user_id=user.id
+        inner join sys_role role on role.id=ur.role_id and role.statu=1
+        where user.username=#{name}
     </select>
 </mapper>

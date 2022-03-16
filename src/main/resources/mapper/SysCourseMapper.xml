@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markerhub.mapper.SysCourseMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.markerhub.entity.SysCourseEntity" id="sysCourseMap">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="classId" column="class_id"/>
+        <result property="year" column="year"/>
+        <result property="semester" column="semester"/>
+        <result property="statu" column="statu"/>
+        <result property="courseStatu" column="course_statu"/>
+    </resultMap>
+    <resultMap id="courseVOMap" type="com.markerhub.entity.vo.CourseVO">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="year" column="year"/>
+        <result property="semester" column="semester"/>
+        <result property="statu" column="statu"/>
+        <result property="courseStatu" column="course_statu"/>
+        <association property="user" javaType="com.markerhub.entity.SysUser">
+            <result property="id" column="userId"/>
+            <result property="username" column="username"/>
+        </association>
+        <association property="classInfo" javaType="com.markerhub.entity.SysClassEntity">
+            <result property="id" column="classId"/>
+            <result property="code" column="classCode"/>
+            <result property="name" column="className"/>
+            <result property="statu" column="classStatu"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllCourse" resultMap="courseVOMap">
+       select course.id, course.code ,course.name ,course.year,course.semester ,
+        course.statu, user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu
+        from sys_course course
+        inner join sys_user user on user.id=course.teacher_id
+        inner join sys_class class on class.id =course.class_id
+        where course.name like concat('%','','%')
+    </select>
+    <select id="getTeacherCourseByUserId" resultMap="courseVOMap">
+       select course.id, course.code ,course.name ,course.year,course.semester ,
+        course.statu, user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu
+        from sys_course course
+        inner join sys_user user on user.id=course.teacher_id
+        inner join sys_class class on class.id =course.class_id
+        where user.id=#{id} and course.name like concat('%','','%')
+    </select>
+
+
+</mapper>

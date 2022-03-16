@@ -5,6 +5,7 @@ import com.markerhub.entity.SysRole;
 import com.markerhub.mapper.SysRoleMapper;
 import com.markerhub.service.SysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import java.util.List;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
 
+	@Autowired
+	private SysRoleMapper roleMapper;
+
 	@Override
 	public List<SysRole> listRolesByUserId(Long userId) {
 
@@ -28,4 +32,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
 		return sysRoles;
 	}
+
+	//@Override
+	//public List<SysRole> getUserRole(String name) {
+	//	List<SysRole> userRole = roleMapper.getUserRole(name);
+	//	return userRole;
+	//}
 }

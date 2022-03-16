@@ -25,4 +25,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 	List<SysUser> getNotBindUserList();
 
     List<SysUser> getAllManagers();
+
+	SysUser getUserRoleByName(String name);
 }
