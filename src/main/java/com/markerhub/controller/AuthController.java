@@ -32,7 +32,7 @@ public class AuthController extends BaseController{
 
 		// 为了测试
 		key = "aaaaa";
-		code = "11111";
+
 
 		BufferedImage image = producer.createImage(code);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

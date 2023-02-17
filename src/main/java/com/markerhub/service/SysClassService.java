@@ -21,5 +21,7 @@ public interface SysClassService extends IService<SysClassEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     List<SysClassEntity> getAllClass();
+
+
 }
 

@@ -52,9 +52,12 @@ public class SysCourseEntity implements Serializable {
 	 * 状态
 	 */
 	private Integer statu;
-	/**
-	 * 课程审批状态
-	 */
-	private Long courseStatu;
 
+	private  Integer courseStatu;
+
+	private  Date startTime;
+
+	private Date endTime;
+
+	private Integer classroomId;
 }

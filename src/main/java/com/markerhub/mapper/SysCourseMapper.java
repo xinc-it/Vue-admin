@@ -23,4 +23,7 @@ public interface SysCourseMapper extends BaseMapper<SysCourseEntity> {
     Page<CourseVO> getAllCourse(Page<CourseVO> page, @Param("name") Object name);
 
     Page<CourseVO> getTeacherCourseByUserId(Page<CourseVO> page, @Param("name") Object name,@Param("id") Long id );
+    List<CourseVO> getCourseByUserId(@Param("id") Long id );
+
+    CourseVO getCourseDetailById(@Param("id")Long id);
 }

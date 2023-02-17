@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,8 +112,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public boolean existsEmail(String emailAddress) throws Exception {
-        if (getOne(new QueryWrapper<SysUser>().eq("email", emailAddress)) == null) {
+    public boolean existsEmail(String emailAddress) {
+        if (getOne(new QueryWrapper<SysUser>().eq("email", emailAddress),false) == null) {
             return true;
         }
         return false;
@@ -121,7 +122,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUser> findAllUsers() {
         List<SysUser> userList = sysUserMapper.getNotBindUserList();
-        return userList;
+        List<SysUser> users = new ArrayList();
+        for (SysUser sysUser : userList) {
+            SysUser userRoleByName = getUserRoleByName(sysUser.getUsername());
+            if (userRoleByName.getSysRoles().stream().anyMatch(p -> p.getCode().equals("normal"))) {
+                users.add(userRoleByName);
+            }
+        }
+        return users;
     }
 
     @Override
@@ -135,6 +143,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUserMapper.getUserRoleByName(name);
     }
 
+    @Override
+    public List<SysUser> getAllTeachers() {
+        List<SysUser> userList = sysUserMapper.getAllTeachers();
+        return userList;
+    }
 
-
+    @Override
+    public String getEmailAddress(Long id) {
+        QueryWrapper<SysUser> wrapper=new QueryWrapper<>();
+        wrapper.eq("id", id);
+        return getOne(wrapper).getEmail();
+    }
 }

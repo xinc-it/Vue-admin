@@ -14,6 +14,8 @@
         <result property="semester" column="semester"/>
         <result property="statu" column="statu"/>
         <result property="courseStatu" column="course_statu"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
     </resultMap>
     <resultMap id="courseVOMap" type="com.markerhub.entity.vo.CourseVO">
         <result property="id" column="id"/>
@@ -23,6 +25,8 @@
         <result property="semester" column="semester"/>
         <result property="statu" column="statu"/>
         <result property="courseStatu" column="course_statu"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
         <association property="user" javaType="com.markerhub.entity.SysUser">
             <result property="id" column="userId"/>
             <result property="username" column="username"/>
@@ -33,25 +37,60 @@
             <result property="name" column="className"/>
             <result property="statu" column="classStatu"/>
         </association>
+        <association property="classroomInfo" javaType="com.markerhub.entity.SysClassroomEntity">
+            <result property="id" column="classroomId"/>
+            <result property="name" column="classroomName"/>
+            <result property="code" column="classroomCode"/>
+        </association>
     </resultMap>
 
     <select id="getAllCourse" resultMap="courseVOMap">
        select course.id, course.code ,course.name ,course.year,course.semester ,
-        course.statu, user.id userId,user.username username,
-        class.id classId,class.code classCode ,class.name className, class.statu classStatu
+        course.statu, course.course_statu,course.start_time,course.end_time,
+        user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu,
+        classroom.id classroomId,classroom.name classroomName,classroom.code classroomCode
         from sys_course course
         inner join sys_user user on user.id=course.teacher_id
         inner join sys_class class on class.id =course.class_id
-        where course.name like concat('%','','%')
+        left join sys_classroom classroom on classroom.id=course.classroom_id
+        where course.name like concat('%',#{name},'%')
     </select>
     <select id="getTeacherCourseByUserId" resultMap="courseVOMap">
        select course.id, course.code ,course.name ,course.year,course.semester ,
-        course.statu, user.id userId,user.username username,
-        class.id classId,class.code classCode ,class.name className, class.statu classStatu
+        course.statu,  course.course_statu,course.start_time,course.end_time,
+        user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu,
+         classroom.id classroomId,classroom.name classroomName,classroom.code classroomCode
         from sys_course course
         inner join sys_user user on user.id=course.teacher_id
         inner join sys_class class on class.id =course.class_id
-        where user.id=#{id} and course.name like concat('%','','%')
+        left join sys_classroom classroom on classroom.id=course.classroom_id
+        where user.id=#{id} and course.name like concat('%',#{name},'%')
+    </select>
+    <select id="getCourseByUserId" resultMap="courseVOMap">
+        select course.id, course.code ,course.name ,course.year,course.semester ,
+        course.statu,  course.course_statu,course.start_time,course.end_time,
+        user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu,
+         classroom.id classroomId,classroom.name classroomName,classroom.code classroomCode
+        from sys_course course
+        inner join sys_user user on user.id=course.teacher_id
+        inner join sys_class class on class.id =course.class_id
+        left join sys_classroom classroom on classroom.id=course.classroom_id
+        where user.id=#{id} and course.statu=1 and course.course_statu in (0,3)
+    </select>
+    <select id="getCourseDetailById" resultMap="courseVOMap">
+         select course.id, course.code ,course.name ,course.year,course.semester ,
+        course.statu,  course.course_statu,course.start_time,course.end_time,
+        user.id userId,user.username username,
+        class.id classId,class.code classCode ,class.name className, class.statu classStatu,
+         classroom.id classroomId,classroom.name classroomName,classroom.code classroomCode
+        from sys_course course
+        inner join sys_user user on user.id=course.teacher_id
+        inner join sys_class class on class.id =course.class_id
+        left join sys_classroom classroom on classroom.id=course.classroom_id
+        where course.id=#{id}
     </select>
 
 

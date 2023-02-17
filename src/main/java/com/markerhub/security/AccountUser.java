@@ -1,5 +1,6 @@
 package com.markerhub.security;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -7,7 +8,7 @@ import org.springframework.util.Assert;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
-
+@Getter
 public class AccountUser implements UserDetails {
 
 	private Long userId;

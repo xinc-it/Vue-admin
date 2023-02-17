@@ -3,6 +3,7 @@ package com.markerhub.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ import java.util.List;
  * @since 2021-04-05
  */
 @Data
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 

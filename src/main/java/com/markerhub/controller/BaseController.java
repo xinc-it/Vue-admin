@@ -31,6 +31,9 @@ public class BaseController {
 	@Autowired
 	SysRoleMenuService sysRoleMenuService;
 
+	@Autowired
+	SysCourseService sysCourseService;
+
 	/**
 	 * 获取页面
 	 * @return

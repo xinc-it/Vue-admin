@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/captcha",
             "/favicon.ico",
             "up/token",
+            "/mail/sendTextMail",
 
     };
 

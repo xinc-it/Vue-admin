@@ -28,7 +28,7 @@
         select room.id ,room.code ,room.name ,room.site ,room.statu ,user.id userId ,user.username
         from sys_classroom room
         inner join sys_user user on user.id=room.user_id
-        WHERE room.name like concat('%','','%')
+        WHERE room.name like concat('%',#{name},'%')
     </select>
 
 

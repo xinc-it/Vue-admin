@@ -1,11 +1,14 @@
 package com.markerhub.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.markerhub.entity.SysClassroomEntity;
 import com.markerhub.service.SysClassroomService;
 import com.markerhub.utils.PageUtils;
+import com.markerhub.utils.Query;
 import com.markerhub.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,6 +46,15 @@ public class SysClassroomController {
         return R.ok().put("page", page);
     }
 
+    @RequestMapping("/all")
+    public R getAllClassRoom(){
+        QueryWrapper<SysClassroomEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("statu",1);
+        wrapper.select("*");
+        List<SysClassroomEntity> list = sysClassroomService.list(wrapper);
+
+        return R.ok().put("data", list);
+    }
 
     /**
      * 信息

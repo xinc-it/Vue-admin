@@ -27,7 +27,7 @@ public interface SysUserService extends IService<SysUser> {
     void clearUserAuthorityInfoByMenuId(Long menuId);
 
 
-    boolean existsEmail(String emailAddress) throws Exception;
+    boolean existsEmail(String emailAddress) ;
 
     List<SysUser> findAllUsers();
 
@@ -39,4 +39,12 @@ public interface SysUserService extends IService<SysUser> {
     static boolean userIsAdmin(List<SysRole> sysRoles) {
         return sysRoles.stream().anyMatch(k -> "admin".equalsIgnoreCase(k.getCode()));
     }
+
+    static boolean userIsManager(List<SysRole> sysRoles) {
+        return sysRoles.stream().anyMatch(k -> "manager".equalsIgnoreCase(k.getCode()));
+    }
+
+    List<SysUser> getAllTeachers();
+
+    String getEmailAddress(Long id);
 }

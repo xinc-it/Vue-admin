@@ -1,8 +1,11 @@
 package com.markerhub.entity.vo;
 
 import com.markerhub.entity.SysClassEntity;
+import com.markerhub.entity.SysClassroomEntity;
 import com.markerhub.entity.SysUser;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * Date：2022/3/15
@@ -44,8 +47,16 @@ public class CourseVO {
      * 状态
      */
     private Integer statu;
+
     /**
      * 课程审批状态
      */
-    private Long courseStatu;
+    private Integer courseStatu;
+
+
+    private SysClassroomEntity classroomInfo;
+
+    private Date startTime;
+
+    private Date endTime;
 }

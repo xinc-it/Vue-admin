@@ -27,4 +27,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     List<SysUser> getAllManagers();
 
 	SysUser getUserRoleByName(String name);
+
+	List<SysUser> getAllTeachers();
 }

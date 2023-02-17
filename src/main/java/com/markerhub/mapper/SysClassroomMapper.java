@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.markerhub.entity.SysClassroomEntity;
 import com.markerhub.entity.vo.ClassroomVO;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 教室表
@@ -17,5 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysClassroomMapper extends BaseMapper<SysClassroomEntity> {
 
-    Page<ClassroomVO> pageAllClassRoom(Page<ClassroomVO> page,@Param("name") Object key);
+    Page<ClassroomVO> pageAllClassRoom(Page<ClassroomVO> page,@Param("name") Object name);
 }

@@ -15,7 +15,7 @@
         FROM sys_class class
         LEFT JOIN sys_stu stu
         ON stu.class_id=class.id and stu.statu=1
-        WHERE class.name like concat('%','','%')
+        WHERE class.name like concat('%',#{name},'%')
         group by class.id
     </select>
 

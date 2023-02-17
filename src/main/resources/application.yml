@@ -12,6 +12,37 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  mail:
+    #配置smtp服务主机地址
+    # qq邮箱为smtp.qq.com          端口号465或587
+    # sina    smtp.sina.cn
+    # aliyun  smtp.aliyun.com
+    # 163     smtp.163.com       端口号465或994
+    host: smtp.qq.com
+    #发送者邮箱
+    username: 1935621364@qq.com
+    #配置密码,注意不是真正的密码，而是刚刚申请到的授权码
+    password: icdtzozuxiejeafa
+    #端口号465或587
+    port: 587
+    #默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+    #其他参数
+    properties:
+      mail:
+        #配置SSL 加密工厂
+        smtp:
+          ssl:
+            #本地测试，先放开ssl
+            enable: false
+            required: false
+          #开启debug模式，这样邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+
 
 #  security:
 #    user:
@@ -35,7 +66,6 @@ qiniu:
   access-key: gP4XWxPuAMZMeVFeU83IW1mxv_FbFBLRDw94GGIZ
   secret-key: efCnmzcr4KfUji08zVfz2L4-PD4F8Ei0nfBuA2Ut
   bucket: yuque-hexo
-
 
 
 

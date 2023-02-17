@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markerhub.mapper.SysCourseApprovalMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.markerhub.entity.SysCourseApprovalEntity" id="sysCourseApprovalMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="approverId" column="approver_id"/>
+        <result property="sponsorId" column="sponsor_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="approvalStatu" column="approval_statu"/>
+        <result property="remark" column="remark"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="statu" column="statu"/>
+    </resultMap>
+
+
+    <resultMap type="com.markerhub.entity.vo.CourseApprovalVO" id="courseVOMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="approvalStatu" column="approval_statu"/>
+        <result property="remark" column="remark"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="statu" column="appStatu"/>
+        <association property="approver" javaType="com.markerhub.entity.SysUser">
+            <result property="id" column="approver_id"/>
+            <result property="username" column="approverName"/>
+        </association>
+        <association property="sponsor" javaType="com.markerhub.entity.SysUser">
+            <result property="id" column="sponsor_id"/>
+            <result property="username" column="sponsorName"/>
+        </association>
+        <association property="course" javaType="com.markerhub.entity.SysCourseEntity">
+            <result property="id" column="course_id"/>
+            <result property="name" column="courseName"/>
+            <result property="classId" column="class_id"/>
+            <result property="teacherId" column="teacher_id"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllCourseApproval" resultMap="courseVOMap">
+        SELECT
+        	app.id,
+        	app.title,
+        	app.approver_id,
+        	approver.username approverName,
+        	app.sponsor_id,
+        	sponsor.username sponsorName,
+        	app.course_id,
+        	course.`name` courseName,
+            course.class_id ,
+    		course.teacher_id,
+        	app.approval_statu,
+        	app.remark,
+        	app.start_time,
+        	app.end_time,
+        	app.statu appStatu
+        FROM
+        	sys_course_approval app
+        	INNER JOIN sys_user approver ON approver.id = app.approver_id
+        	left JOIN sys_user sponsor ON sponsor.id = app.sponsor_id
+        	inner  JOIN sys_course course ON course.id = app.course_id
+        	where app.title like concat('%',#{name},'%')
+    </select>
+    <select id="getCourseApprovalByUserId" resultMap="courseVOMap">
+          SELECT
+        	app.id,
+        	app.title,
+        	app.approver_id,
+        	approver.username approverName,
+        	app.sponsor_id,
+        	sponsor.username sponsorName,
+        	app.course_id,
+        	course.`name` courseName,
+            course.class_id ,
+    		course.teacher_id,
+        	app.approval_statu,
+        	app.remark,
+        	app.start_time,
+        	app.end_time,
+        	app.statu appStatu
+        FROM
+        	sys_course_approval app
+        	INNER JOIN sys_user approver ON approver.id = app.approver_id
+        	left JOIN sys_user sponsor ON sponsor.id = app.sponsor_id
+        	inner  JOIN sys_course course ON course.id = app.course_id
+        	where app.title like concat('%',#{name},'%') and app.sponsor_id=#{id}
+    </select>
+
+
+</mapper>

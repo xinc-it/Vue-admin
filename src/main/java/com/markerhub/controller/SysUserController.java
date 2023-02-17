@@ -53,13 +53,19 @@ public class SysUserController extends BaseController {
         return Result.succ(sysUser);
     }
 
+    /**
+     * 获取相关用户信息
+     *
+     * @param username 用户名
+     * @return
+     */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:user:list')")
     public Result list(String username) {
-
+        //查询用户个人信息
         Page<SysUser> pageData = sysUserService.page(getPage(), new QueryWrapper<SysUser>()
                 .like(StrUtil.isNotBlank(username), "username", username));
-
+        //查询用户对应角色信息并将角色信息注入到用户属性中
         pageData.getRecords().forEach(u -> {
 
             u.setSysRoles(sysRoleService.listRolesByUserId(u.getId()));
@@ -116,6 +122,14 @@ public class SysUserController extends BaseController {
         List<SysUser> userList = sysUserService.getAllManagers();
         return Result.succ(userList);
     }
+
+
+    @RequestMapping("/all/teacher")
+    public Result getAllTeachers() {
+        List<SysUser> userList = sysUserService.getAllTeachers();
+        return Result.succ(userList);
+    }
+
 
     @Transactional
     @PostMapping("/delete")
@@ -186,12 +200,14 @@ public class SysUserController extends BaseController {
 
     @PostMapping("/updateCheck/{email}")
     public Result updatePass(@PathVariable("email") String email) {
-        try {
-            sysUserService.existsEmail(email);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Result.fail("邮箱已被注册");
+        //try {
+        if (sysUserService.existsEmail(email)) {
+            return Result.succ("邮箱地址可用");
+
         }
-        return Result.succ("邮箱地址可用");
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+       return  Result.fail("邮箱已被注册");
+        //}
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.markerhub.entity.SysStuEntity;
 import com.markerhub.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface SysStuService extends IService<SysStuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<SysStuEntity> getStuInfoByClass(Long classId);
 }
 
